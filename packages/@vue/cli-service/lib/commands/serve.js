@@ -13,6 +13,7 @@ const defaults = {
   https: false
 }
 
+let startTime = '';
 module.exports = (api, options) => {
   api.registerCommand('serve', {
     description: 'start development server',
@@ -29,6 +30,8 @@ module.exports = (api, options) => {
       '--skip-plugins': `comma-separated list of plugin names to skip for this run`
     }
   }, async function serve (args) {
+    //开始时间
+    startTime = Date.parse(new Date());
     info('Starting development server...')
 
     // although this is primarily a dev server, it is possible that we
@@ -257,7 +260,8 @@ module.exports = (api, options) => {
         const networkUrl = publicUrl
           ? publicUrl.replace(/([^/])$/, '$1/')
           : urls.lanUrlForTerminal
-
+        console.log('结束时间戳：' + Date.parse(new Date()))
+        console.log('花费时间：' + (Date.parse(new Date()) - startTime) / 1000 + '秒')
         console.log()
         console.log(`  App running at:`)
         console.log(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)} ${copied}`)

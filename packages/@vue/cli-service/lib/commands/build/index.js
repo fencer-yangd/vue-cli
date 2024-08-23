@@ -19,6 +19,7 @@ const modifyConfig = (config, fn) => {
   }
 }
 
+let startTime = '';
 module.exports = (api, options) => {
   api.registerCommand('build', {
     description: 'build for production',
@@ -93,6 +94,7 @@ module.exports = (api, options) => {
 }
 
 async function build (args, api, options) {
+  startTime = Date.parse(new Date())
   const fs = require('fs-extra')
   const path = require('path')
   const webpack = require('webpack')
@@ -215,6 +217,8 @@ async function build (args, api, options) {
         log(formatStats(stats, targetDirShort, api))
         if (args.target === 'app' && !isLegacyBuild) {
           if (!args.watch) {
+            console.log('结束时间戳：'+Date.parse(new Date()))
+            console.log('花费时间：'+(Date.parse(new Date())-startTime)/1000+'秒')
             done(`Build complete. The ${chalk.cyan(targetDirShort)} directory is ready to be deployed.`)
             info(`Check out deployment instructions at ${chalk.cyan(`https://cli.vuejs.org/guide/deployment.html`)}\n`)
           } else {
