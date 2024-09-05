@@ -7,7 +7,8 @@ const testPromptAPI = (cli: PromptModuleAPI) => {
     short: 'Babel',
     // descriptions: 'Transpile modern JavaScript to older versions (for compatibility)',
     // link: 'https://babeljs.io/',
-    checked: true
+    checked: true,
+    a: 1
   })
 
   cli.injectOptionForPrompt('customBar', {
